@@ -30,20 +30,10 @@ public class MainActivity extends AppCompatActivity implements OnMessageListener
                     myCode = codigo.getText().toString().trim();
                     tcp.getIP(myCode);
                     tcp.start();
-                    Log.d("AAAAHHHHH", ""+myCode);
                 }
         );
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
-
-
-
-    }
 
     @Override
     public void cuandoLlegueElMensaje(String msg) {
