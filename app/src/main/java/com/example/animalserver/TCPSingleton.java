@@ -88,6 +88,5 @@ public class TCPSingleton extends Thread{
 
     public void getIP (String myIp) {
         codigo = myIp;
-        //Log.d(">>>>>>>>>", ""+codigo);
     }
 }
