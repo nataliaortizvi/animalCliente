@@ -78,6 +78,7 @@ public class TCPSingleton extends Thread{
                     try {
                         writer.write(msg+"\n");
                         writer.flush();
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -87,6 +88,6 @@ public class TCPSingleton extends Thread{
 
     public void getIP (String myIp) {
         codigo = myIp;
-        Log.d(">>>>>>>>>", ""+codigo);
+        //Log.d(">>>>>>>>>", ""+codigo);
     }
 }

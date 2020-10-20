@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements OnMessageListener
                         myCode = codigo.getText().toString().trim();
                         tcp.getIP(myCode);
                         tcp.start();
-
-
                 }
         );
     }
@@ -41,9 +39,8 @@ public class MainActivity extends AppCompatActivity implements OnMessageListener
 
     @Override
     public void cuandoLlegueElMensaje(String msg) {
-
         Log.d("<<<<<<<<<",""+msg);
-        if(msg.equals("escoger")){
+        if(msg.contains("escoger")){
             Intent i = new Intent(this, Seleccion.class);
             startActivity(i);
         }
