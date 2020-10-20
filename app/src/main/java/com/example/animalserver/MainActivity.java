@@ -2,6 +2,7 @@ package com.example.animalserver;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -27,9 +28,12 @@ public class MainActivity extends AppCompatActivity implements OnMessageListener
 
         btnConectar.setOnClickListener(
                 (view) -> {
-                    myCode = codigo.getText().toString().trim();
-                    tcp.getIP(myCode);
-                    tcp.start();
+
+                        myCode = codigo.getText().toString().trim();
+                        tcp.getIP(myCode);
+                        tcp.start();
+
+
                 }
         );
     }
@@ -38,6 +42,11 @@ public class MainActivity extends AppCompatActivity implements OnMessageListener
     @Override
     public void cuandoLlegueElMensaje(String msg) {
 
+        Log.d("<<<<<<<<<",""+msg);
+        if(msg.equals("escoger")){
+            Intent i = new Intent(this, Seleccion.class);
+            startActivity(i);
+        }
     }
 
 }

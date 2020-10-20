@@ -60,6 +60,7 @@ public class TCPSingleton extends Thread{
             while(true){
                 //recibe constantemente
                 String line = reader.readLine();
+                observer.cuandoLlegueElMensaje(line);
             }
 
 
