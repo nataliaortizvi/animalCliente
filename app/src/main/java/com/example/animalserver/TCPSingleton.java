@@ -13,16 +13,12 @@ import java.net.Socket;
 
 public class TCPSingleton extends Thread{
 
-    private String codigo;
-    private OnMessageListener observer;
-
+    //unica instancia de TcpSingleton
+    private static TCPSingleton unicaInstancia;
 
     //constructor privado
     private TCPSingleton(){}
 
-
-    //unica instancia de TcpSingleton
-    private static TCPSingleton unicaInstancia;
 
     //metodo estático que devuelve la unica instancia
     public static TCPSingleton getInstance(){
@@ -33,11 +29,16 @@ public class TCPSingleton extends Thread{
         return unicaInstancia;
     }
 
+    private String codigo;
+    private OnMessageListener observer;
+
+
     //variables globales tcp
     private Socket socket;
     private BufferedWriter writer;
     private BufferedReader reader;
 
+    //Suscripcion
     public void setObserver (OnMessageListener observer) {
         this.observer = observer;
     }
@@ -69,6 +70,19 @@ public class TCPSingleton extends Thread{
             e.printStackTrace();
         }
 
+    }
+
+    public void sendMessage (String msg) {
+        new Thread (
+                ()-> {
+                    try {
+                        writer.write(msg+"\n");
+                        writer.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+        ).start();
     }
 
     public void getIP (String myIp) {
