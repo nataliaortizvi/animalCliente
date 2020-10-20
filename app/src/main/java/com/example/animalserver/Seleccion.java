@@ -2,6 +2,7 @@ package com.example.animalserver;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,7 +49,7 @@ public class Seleccion extends AppCompatActivity implements OnMessageListener, V
                 tipo = "chicken";
                 break;
         }
-        CoorAnimal coo = new CoorAnimal(50,320, tipo);
+        CoorAnimal coo = new CoorAnimal(50,350, tipo);
         Gson gson = new Gson();
         String json = gson.toJson(coo);
         tcp.sendMessage(json);
@@ -57,6 +58,9 @@ public class Seleccion extends AppCompatActivity implements OnMessageListener, V
 
     @Override
     public void cuandoLlegueElMensaje(String msg) {
-
+        if(msg.contains("play")){
+           Intent i = new Intent(this, Game.class);
+           startActivity(i);
+        }
     }
 }
