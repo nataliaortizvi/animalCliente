@@ -54,13 +54,11 @@ public class Seleccion extends AppCompatActivity implements OnMessageListener, V
         Gson gson = new Gson();
         String json = gson.toJson(name);
         tcp.sendMessage(json);
-
-
-
     }
 
     @Override
     public void cuandoLlegueElMensaje(String msg) {
+        Log.d("llegaaaaa",""+msg);
         if(msg.contains("play")){
            Intent i = new Intent(this, Game.class);
            startActivity(i);
