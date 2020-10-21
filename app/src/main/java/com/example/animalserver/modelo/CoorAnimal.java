@@ -1,39 +1,29 @@
 package com.example.animalserver.modelo;
 
 public class CoorAnimal {
-    String type;
-    int posx, posy;
+    float posx, posy;
 
     public CoorAnimal() {}
 
-    public CoorAnimal(int posx, int posy, String type) {
+    public CoorAnimal(float posx, float posy) {
         super();
         this.posx = posx;
         this.posy = posy;
-        this.type = type;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getPosx() {
+    public float getPosx() {
         return posx;
     }
 
-    public void setPosx(int posx) {
+    public void setPosx(float posx) {
         this.posx = posx;
     }
 
-    public int getPosy() {
+    public float getPosy() {
         return posy;
     }
 
-    public void setPosy(int posy) {
+    public void setPosy(float posy) {
         this.posy = posy;
     }
 }

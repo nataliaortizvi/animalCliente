@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.animalserver.modelo.CoorAnimal;
+import com.example.animalserver.modelo.NameAnimal;
 import com.google.gson.Gson;
 
 public class Seleccion extends AppCompatActivity implements OnMessageListener, View.OnClickListener {
@@ -49,10 +50,12 @@ public class Seleccion extends AppCompatActivity implements OnMessageListener, V
                 tipo = "chicken";
                 break;
         }
-        CoorAnimal coo = new CoorAnimal(50,350, tipo);
+        NameAnimal name = new NameAnimal(tipo);
         Gson gson = new Gson();
-        String json = gson.toJson(coo);
+        String json = gson.toJson(name);
         tcp.sendMessage(json);
+
+
 
     }
 
