@@ -70,7 +70,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                                         if(salto == 11){
                                             tope = true;
                                         }
-                                        CoorAnimal jumps = new CoorAnimal(posX, posY);
+                                        CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
                                         String jsonU = gsonU.toJson(jumps);
                                         tcp.sendMessage(jsonU);
                                     }
@@ -83,7 +83,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                                             tope = false;
                                             elJump = false;
                                         }
-                                        CoorAnimal jumps = new CoorAnimal(posX, posY);
+                                        CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
                                         String jsonD = gsonD.toJson(jumps);
                                         tcp.sendMessage(jsonD);
                                     }
@@ -123,7 +123,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                                         if (posX >= 0) {
                                             posX -= 0.1;
 
-                                            CoorAnimal jumps = new CoorAnimal(posX, posY);
+                                            CoorAnimal jumps = new CoorAnimal(posX, posY, "left");
                                             String jsonL = gsonL.toJson(jumps);
                                             tcp.sendMessage(jsonL);
                                         }
@@ -145,7 +145,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                                         if (posX <= 1030) {
                                             posX += 0.1;
 
-                                            CoorAnimal jumps = new CoorAnimal(posX, posY);
+                                            CoorAnimal jumps = new CoorAnimal(posX, posY, "right");
                                             String jsonR = gsonR.toJson(jumps);
                                             tcp.sendMessage(jsonR);
                                         }

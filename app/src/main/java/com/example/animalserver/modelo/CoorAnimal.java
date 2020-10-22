@@ -1,14 +1,17 @@
 package com.example.animalserver.modelo;
 
 public class CoorAnimal {
+
+    String type;
     float posx, posy;
 
     public CoorAnimal() {}
 
-    public CoorAnimal(float posx, float posy) {
+    public CoorAnimal(float posx, float posy, String type) {
         super();
         this.posx = posx;
         this.posy = posy;
+        this.type = type;
     }
 
     public float getPosx() {
@@ -25,5 +28,12 @@ public class CoorAnimal {
 
     public void setPosy(float posy) {
         this.posy = posy;
+    }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
