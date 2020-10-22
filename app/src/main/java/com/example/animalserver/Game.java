@@ -23,10 +23,14 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
 
     private float posX = 50;
     private float posY = 350;
+    private float salto = 0, bajo = 0;
+
 
     private Boolean elJump = false;
     private Boolean elRight = false;
     private Boolean elLeft = false;
+
+    private Boolean tope = false;
 
 
 
@@ -45,14 +49,57 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
         tcp = TCPSingleton.getInstance();
         tcp.setObserver(this);
 
-
-        jump.setOnTouchListener(this);
         left.setOnTouchListener(this);
         right.setOnTouchListener(this);
         shot.setOnTouchListener(this);
         mySuper.setOnTouchListener(this);
 
+        jump.setOnClickListener(
+                (view) -> {
+                    Log.e("UPPPP", "PRESIONADO");
+                    elJump = true;
+                    Gson gsonU = new Gson();
+                    Gson gsonD = new Gson();
+                    new Thread(
+                            ()->{
+                                while(elJump == true){
+                                    if(salto >= 0 && tope == false){
+                                        salto += 0.5;
+                                        posY -= salto;
+                                        bajo = 0;
+                                        if(salto == 11){
+                                            tope = true;
+                                        }
+                                        CoorAnimal jumps = new CoorAnimal(posX, posY);
+                                        String jsonU = gsonU.toJson(jumps);
+                                        tcp.sendMessage(jsonU);
+                                    }
+                                    if(tope == true){
+                                        bajo += 0.5;
+                                        salto -= 0.5;
+                                        posY += bajo;
 
+                                        if(salto == 0){
+                                            tope = false;
+                                            elJump = false;
+                                        }
+                                        CoorAnimal jumps = new CoorAnimal(posX, posY);
+                                        String jsonD = gsonD.toJson(jumps);
+                                        tcp.sendMessage(jsonD);
+                                    }
+
+                                    try {
+                                        Thread.sleep(30);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+
+                            }
+                    ).start();
+                }
+        );
     }
 
     @Override
@@ -65,12 +112,6 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
 
                 switch (view.getId()) {
 
-                    ///////SI UNDE BOTON DE SALTAR////////////
-                    case R.id.jump:
-
-
-                        break;
-
                         ///////////SI UNDE IZQUIERDA//////////////
                     case R.id.left:
                         Log.e("LEFT", "PRESIONADO");
@@ -80,7 +121,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                                 () -> {
                                     while (elLeft==true) {
                                         if (posX >= 0) {
-                                            posX -= 0.2;
+                                            posX -= 0.1;
 
                                             CoorAnimal jumps = new CoorAnimal(posX, posY);
                                             String jsonL = gsonL.toJson(jumps);
@@ -101,8 +142,8 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                                 () -> {
 
                                     while (elRight == true) {
-                                        if (posX <= 1040) {
-                                            posX += 0.2;
+                                        if (posX <= 1030) {
+                                            posX += 0.1;
 
                                             CoorAnimal jumps = new CoorAnimal(posX, posY);
                                             String jsonR = gsonR.toJson(jumps);
@@ -126,11 +167,6 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
 
                 case MotionEvent.ACTION_UP:
                     switch (view.getId()){
-                        ////////si el boton soltado es el boton de saltar////////
-                        case R.id.jump:
-                            elJump = false;
-                            Log.e("UP", "SOLTADO");
-                            break;
 
                         ////////si el boton soltado es el boton de izquierda////////
                         case R.id.left:
