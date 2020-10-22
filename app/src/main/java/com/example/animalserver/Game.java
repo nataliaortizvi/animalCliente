@@ -2,7 +2,7 @@ package com.example.animalserver;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.MicrophoneInfo;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -12,28 +12,18 @@ import android.widget.Button;
 import com.example.animalserver.modelo.CoorAnimal;
 import com.google.gson.Gson;
 
-public class Game extends AppCompatActivity implements View.OnTouchListener, OnMessageListener {
+public class Game extends AppCompatActivity implements View.OnTouchListener, OnMessageListener, View.OnClickListener {
 
-    private Button jump;
-    private Button left;
-    private Button right;
-    private Button shot;
-    private Button mySuper;
+    private Button jump, left, right, shot,mySuper;
     private TCPSingleton tcp;
 
+    //variables del salto
     private float posX = 50;
     private float posY = 350;
     private float salto = 0, bajo = 0;
-
-
-    private Boolean elJump = false;
-    private Boolean elRight = false;
-    private Boolean elLeft = false;
-
     private Boolean tope = false;
 
-
-
+    private Boolean elJump = false, elRight = false, elLeft = false, elShot = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,65 +41,74 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
 
         left.setOnTouchListener(this);
         right.setOnTouchListener(this);
-        shot.setOnTouchListener(this);
-        mySuper.setOnTouchListener(this);
 
-        jump.setOnClickListener(
-                (view) -> {
-                    Log.e("UPPPP", "PRESIONADO");
-                    elJump = true;
-                    Gson gsonU = new Gson();
-                    Gson gsonD = new Gson();
-                    new Thread(
-                            ()->{
-                                while(elJump == true){
-                                    if(salto >= 0 && tope == false){
-                                        salto += 0.5;
-                                        posY -= salto;
-                                        bajo = 0;
-                                        if(salto == 11){
-                                            tope = true;
-                                        }
-                                        CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
-                                        String jsonU = gsonU.toJson(jumps);
-                                        tcp.sendMessage(jsonU);
+        shot.setOnClickListener(this);
+        mySuper.setOnClickListener(this);
+        jump.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.jump:
+                Log.e("UPPPP", "PRESIONADO");
+                elJump = true;
+                Gson gsonU = new Gson();
+                Gson gsonD = new Gson();
+                new Thread(
+                        ()->{
+                            while(elJump == true){
+                                if(salto >= 0 && tope == false){
+                                    salto += 0.5;
+                                    posY -= salto;
+                                    bajo = 0;
+                                    if(salto == 11){
+                                        tope = true;
                                     }
-                                    if(tope == true){
-                                        bajo += 0.5;
-                                        salto -= 0.5;
-                                        posY += bajo;
+                                    CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
+                                    String jsonU = gsonU.toJson(jumps);
+                                    tcp.sendMessage(jsonU);
+                                }
+                                if(tope == true){
+                                    bajo += 0.5;
+                                    salto -= 0.5;
+                                    posY += bajo;
 
-                                        if(salto == 0){
-                                            tope = false;
-                                            elJump = false;
-                                        }
-                                        CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
-                                        String jsonD = gsonD.toJson(jumps);
-                                        tcp.sendMessage(jsonD);
+                                    if(salto == 0){
+                                        tope = false;
+                                        elJump = false;
                                     }
+                                    CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
+                                    String jsonD = gsonD.toJson(jumps);
+                                    tcp.sendMessage(jsonD);
+                                }
 
-                                    try {
-                                        Thread.sleep(30);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-
+                                try {
+                                    Thread.sleep(30);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
                                 }
 
                             }
-                    ).start();
-                }
-        );
+
+                        }
+                ).start();
+                break;
+
+            case R.id.shot:
+                Gson gsonS = new Gson();
+                CoorAnimal shootss = new CoorAnimal(posX,posY,"paw");
+                String jsonS = gsonS.toJson(shootss);
+                tcp.sendMessage(jsonS);
+                break;
+        }
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-
-
         switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
-
-
                 switch (view.getId()) {
 
                         ///////////SI UNDE IZQUIERDA//////////////
@@ -154,14 +153,6 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                         ).start();
                         break;
 
-            /*case R.id.shot:
-
-                gson = new Gson ();
-                CoorAnimal shots = new CoorAnimal("shot");
-                json = gson.toJson(shots);
-                tcp.sendMessage(json);
-                break;*/
-
                 }
                 break;
 
@@ -189,6 +180,11 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
 
     @Override
     public void cuandoLlegueElMensaje(String msg) {
-
+        if(msg.contains("end")){
+            Intent i = new Intent(this, fin.class);
+            startActivity(i);
+        }
     }
+
+
 }
