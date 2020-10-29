@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.animalserver.modelo.CoorAnimal;
 import com.google.gson.Gson;
@@ -16,12 +17,13 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
 
     private Button jump, left, right, shot,mySuper;
     private TCPSingleton tcp;
+    private ImageView soyGallo, soyElefante, soyPig, ventajaElef, ventajaChic, ventajaPig;
 
     //variables del salto
     private float posX = 50;
     private float posY = 350;
     private float salto = 0, bajo = 0;
-    private Boolean tope = false;
+    private Boolean tope = false, pigsito = false;
 
     private Boolean elJump = false, elRight = false, elLeft = false, elShot = false;
 
@@ -35,6 +37,9 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
         right = findViewById(R.id.right);
         shot = findViewById(R.id.shot);
         mySuper = findViewById(R.id.mySuper);
+        soyGallo = findViewById(R.id.soyGallo);
+        soyElefante = findViewById(R.id.soyElefante);
+        soyPig = findViewById(R.id.soyPig);
 
         tcp = TCPSingleton.getInstance();
         tcp.setObserver(this);
@@ -46,7 +51,9 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
         mySuper.setOnClickListener(this);
         jump.setOnClickListener(this);
 
+        Log.d("aparece pawwww",""+pigsito);
     }
+
 
     @Override
     public void onClick(View view) {
@@ -180,9 +187,19 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
 
     @Override
     public void cuandoLlegueElMensaje(String msg) {
+        Log.d("mensajeeee",""+msg);
         if(msg.contains("end")){
             Intent i = new Intent(this, fin.class);
             startActivity(i);
+        }
+       if(msg.contains("chosenPig")){
+           soyPig.setVisibility(View.VISIBLE);
+        }
+        if(msg.contains("chosenChic")){
+            soyGallo.setVisibility(View.VISIBLE);
+        }
+        if(msg.contains("chosenElef")){
+            soyElefante.setVisibility(View.VISIBLE);
         }
     }
 
