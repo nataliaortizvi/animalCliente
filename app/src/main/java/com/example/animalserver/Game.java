@@ -40,6 +40,9 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
         soyGallo = findViewById(R.id.soyGallo);
         soyElefante = findViewById(R.id.soyElefante);
         soyPig = findViewById(R.id.soyPig);
+        ventajaElef = findViewById(R.id.ventajaElef);
+        ventajaChic = findViewById(R.id.ventajaPig);
+        ventajaPig = findViewById(R.id.ventajaPig);
 
         tcp = TCPSingleton.getInstance();
         tcp.setObserver(this);
@@ -96,9 +99,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-
                             }
-
                         }
                 ).start();
                 break;
@@ -202,6 +203,4 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
             soyElefante.setVisibility(View.VISIBLE);
         }
     }
-
-
 }
