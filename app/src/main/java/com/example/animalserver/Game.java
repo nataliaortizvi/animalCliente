@@ -24,6 +24,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
     //variables del salto
     private float posX = 50;
     private float posY = 350;
+    private int niveles = 0;
     private float salto = 0, bajo = 0;
     private Boolean tope = false, pigsito = false;
 
@@ -71,30 +72,36 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                 new Thread(
                         ()->{
                             while(elJump == true){
-                                if(salto >= 0 && tope == false){
-                                    salto += 0.5;
-                                    posY -= salto;
-                                    bajo = 0;
-                                    if(salto == 11){
-                                        tope = true;
-                                    }
-                                    CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
-                                    String jsonU = gsonU.toJson(jumps);
-                                    tcp.sendMessage(jsonU);
-                                }
-                                if(tope == true){
-                                    bajo += 0.5;
-                                    salto -= 0.5;
-                                    posY += bajo;
+                                switch(niveles){
+                                    case 0:
+                                        if(salto >= 0 && tope == false){
+                                            salto += 0.5;
+                                            posY -= salto;
+                                            bajo = 0;
+                                            if(salto == 11){
+                                                tope = true;
+                                            }
+                                            CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
+                                            String jsonU = gsonU.toJson(jumps);
+                                            tcp.sendMessage(jsonU);
+                                        }
+                                        if(tope == true){
+                                            bajo += 0.5;
+                                            salto -= 0.5;
+                                            posY += bajo;
 
-                                    if(salto == 0){
-                                        tope = false;
-                                        elJump = false;
-                                    }
-                                    CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
-                                    String jsonD = gsonD.toJson(jumps);
-                                    tcp.sendMessage(jsonD);
+                                            if(salto == 0){
+                                                tope = false;
+                                                elJump = false;
+                                            }
+                                            CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
+                                            String jsonD = gsonD.toJson(jumps);
+                                            tcp.sendMessage(jsonD);
+                                        }
+                                        break;
                                 }
+
+
 
                                 try {
                                     Thread.sleep(30);
@@ -105,6 +112,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                         }
                 ).start();
                 break;
+
 
             case R.id.shot:
                 Gson gsonS = new Gson();
