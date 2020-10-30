@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import com.example.animalserver.modelo.CoorAnimal;
 import com.google.gson.Gson;
 
+import static java.lang.Float.parseFloat;
+
 public class Game extends AppCompatActivity implements View.OnTouchListener, OnMessageListener, View.OnClickListener {
 
     private Button jump, left, right, shot,mySuper;
@@ -133,6 +135,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                                             CoorAnimal jumps = new CoorAnimal(posX, posY, "left");
                                             String jsonL = gsonL.toJson(jumps);
                                             tcp.sendMessage(jsonL);
+
                                         }
                                     }
                                 }
@@ -202,5 +205,15 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
         if(msg.contains("chosenElef")){
             soyElefante.setVisibility(View.VISIBLE);
         }
+
+        /*String[] mensajeRs = msg.split("_");
+
+        String jugadors = mensajeRs[0];
+        String mensajes = mensajeRs[1];
+
+        if(jugadors.contains("newPosY")) {
+           // posY = parseFloat(mensajes);
+            Log.d(">>>>>>>>>", ""+mensajes);
+        }*/
     }
 }
