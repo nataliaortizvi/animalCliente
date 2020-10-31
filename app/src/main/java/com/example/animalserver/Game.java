@@ -23,12 +23,13 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
 
     //variables del salto
     private float posX = 50;
-    private float posY = 350;
+    private float posY = 0;
     private int niveles = 0;
     private float salto = 0, bajo = 0;
     private Boolean tope = false, pigsito = false;
 
     private Boolean elJump = false, elRight = false, elLeft = false, elShot = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,37 +73,28 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                 new Thread(
                         ()->{
                             while(elJump == true){
-                                switch(niveles){
-                                    case 0:
                                         if(salto >= 0 && tope == false){
                                             salto += 0.5;
-                                            posY -= salto;
                                             bajo = 0;
                                             if(salto == 11){
                                                 tope = true;
                                             }
-                                            CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
+                                            CoorAnimal jumps = new CoorAnimal(posX, salto, "ap");
                                             String jsonU = gsonU.toJson(jumps);
                                             tcp.sendMessage(jsonU);
                                         }
                                         if(tope == true){
                                             bajo += 0.5;
                                             salto -= 0.5;
-                                            posY += bajo;
 
                                             if(salto == 0){
                                                 tope = false;
                                                 elJump = false;
                                             }
-                                            CoorAnimal jumps = new CoorAnimal(posX, posY, "up");
+                                            CoorAnimal jumps = new CoorAnimal(posX, bajo, "dawn");
                                             String jsonD = gsonD.toJson(jumps);
                                             tcp.sendMessage(jsonD);
                                         }
-                                        break;
-                                }
-
-
-
                                 try {
                                     Thread.sleep(30);
                                 } catch (InterruptedException e) {
@@ -138,13 +130,19 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
                                 () -> {
                                     while (elLeft==true) {
                                         if (posX >= 0) {
-                                            posX -= 0.1;
+                                            posX -= 3;
 
                                             CoorAnimal jumps = new CoorAnimal(posX, posY, "left");
                                             String jsonL = gsonL.toJson(jumps);
                                             tcp.sendMessage(jsonL);
 
                                         }
+                                        try {
+                                            Thread.sleep(20);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+
                                     }
                                 }
                         ).start();
@@ -161,13 +159,19 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
 
                                     while (elRight == true) {
                                         if (posX <= 1030) {
-                                            posX += 0.1;
+                                            posX += 3;
 
                                             CoorAnimal jumps = new CoorAnimal(posX, posY, "right");
                                             String jsonR = gsonR.toJson(jumps);
                                             tcp.sendMessage(jsonR);
                                         }
+                                        try {
+                                            Thread.sleep(20);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
+
                                 }
                         ).start();
                         break;
@@ -199,7 +203,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
 
     @Override
     public void cuandoLlegueElMensaje(String msg) {
-        Log.d("mensajeeee",""+msg);
+        //Log.d("mensajeeee",""+msg);
         if(msg.contains("end")){
             Intent i = new Intent(this, fin.class);
             startActivity(i);
@@ -213,15 +217,10 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
         if(msg.contains("chosenElef")){
             soyElefante.setVisibility(View.VISIBLE);
         }
-
-        /*String[] mensajeRs = msg.split("_");
-
-        String jugadors = mensajeRs[0];
-        String mensajes = mensajeRs[1];
-
-        if(jugadors.contains("newPosY")) {
-           // posY = parseFloat(mensajes);
-            Log.d(">>>>>>>>>", ""+mensajes);
+        /*if(msg.contains(".")){
+           posY=parseFloat(msg);
+           Log.d("pooooo", ""+posY);
         }*/
+
     }
 }
