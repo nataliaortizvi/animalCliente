@@ -118,34 +118,49 @@
             app:srcCompat="@drawable/piglife" />
 
         <ImageView
-            android:id="@+id/ventajaChic"
+            android:id="@+id/chicV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/gallo_v" />
+            app:srcCompat="@drawable/gallolife" />
 
         <ImageView
-            android:id="@+id/ventajaElef"
+            android:id="@+id/elefV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/elephan_v" />
+            app:srcCompat="@drawable/elephanlife" />
 
         <ImageView
-            android:id="@+id/ventajaPig"
+            android:id="@+id/pigV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pig_v" />
+            app:srcCompat="@drawable/piglife" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="5dp"
+            android:text="Ventaja"
+            android:textColor="#E50000"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/chicV"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
