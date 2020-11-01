@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.animalserver.modelo.CoorAnimal;
 import com.google.gson.Gson;
@@ -18,7 +19,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
     private Button jump, left, right, shot,mySuper;
     private TCPSingleton tcp;
     private ImageView soyGallo, soyElefante, soyPig, elefV, pigV, chicV;
-
+    private TextView elef_v, pig_v, chic_v;
     //variables del salto
     private float posX = 50;
     private float posY = 0;
@@ -39,13 +40,19 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
         left = findViewById(R.id.left);
         right = findViewById(R.id.right);
         shot = findViewById(R.id.shot);
-        mySuper = findViewById(R.id.mySuper);
         soyGallo = findViewById(R.id.soyGallo);
         soyElefante = findViewById(R.id.soyElefante);
         soyPig = findViewById(R.id.soyPig);
         elefV = findViewById(R.id.elefV);
         chicV = findViewById(R.id.chicV);
         pigV = findViewById(R.id.pigV);
+        elef_v = findViewById(R.id.elef_v);
+        pig_v = findViewById(R.id.pig_v);
+        chic_v = findViewById(R.id.chic_v);
+
+        /*pigV.setVisibility(View.INVISIBLE);
+        elefV.setVisibility(View.INVISIBLE);
+        chicV.setVisibility(View.INVISIBLE);*/
 
         tcp = TCPSingleton.getInstance();
         tcp.setObserver(this);

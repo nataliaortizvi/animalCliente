@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo"
+    android:visibility="visible"
     tools:context=".Game">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,24 +55,12 @@
             android:id="@+id/shot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="156dp"
             android:background="@drawable/shot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.671"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/mySuper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="186dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="121dp"
-            android:background="@drawable/super_off"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/right"
-            app:layout_constraintTop_toBottomOf="@+id/shot" />
 
         <TextView
             android:id="@+id/character"
@@ -161,6 +150,45 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/chicV"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pig_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="35dp"
+            android:text="Skipper el Chancho"
+            android:textColor="#0D6285"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/chic_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="54dp"
+            android:text="Pepe el Pollo"
+            android:textColor="#0D6285"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/elef_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="45dp"
+            android:text="Pequeño Patrick"
+            android:textColor="#0D6285"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
