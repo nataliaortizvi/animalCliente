@@ -11,10 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.animalserver.modelo.CoorAnimal;
-import com.example.animalserver.modelo.Ventajas;
 import com.google.gson.Gson;
-
-import static java.lang.Float.parseFloat;
 
 public class Game extends AppCompatActivity implements View.OnTouchListener, OnMessageListener, View.OnClickListener {
 
@@ -30,6 +27,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
     private Boolean tope = false, pigsito = false;
 
     private Boolean elJump = false, elRight = false, elLeft = false, elShot = false;
+
 
 
     @Override
@@ -59,7 +57,6 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
         mySuper.setOnClickListener(this);
         jump.setOnClickListener(this);
 
-        Log.d("aparece pawwww",""+pigsito);
     }
 
 
@@ -218,24 +215,7 @@ public class Game extends AppCompatActivity implements View.OnTouchListener, OnM
         }
         if(msg.contains("chosenElef")){
             soyElefante.setVisibility(View.VISIBLE);
-
-        }
-        /*if(msg.contains(".")){
-           posY=parseFloat(msg);
-           Log.d("pooooo", ""+posY);
-        }*/
-
-
-        if (msg.contains("cerdito")) {
-          pigV.setVisibility(View.VISIBLE);
         }
 
-        if (msg.contains("pollito")) {
-         chicV.setVisibility(View.VISIBLE);
-        }
-
-        if (msg.contains("elefantito")) {
-            elefV.setVisibility(View.VISIBLE);
-        }
     }
 }
